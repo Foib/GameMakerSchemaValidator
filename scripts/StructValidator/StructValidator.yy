@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"StructValidator",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"StructValidator",
+  "parent":{
+    "name":"SchemaValidator",
+    "path":"folders/SchemaValidator.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
