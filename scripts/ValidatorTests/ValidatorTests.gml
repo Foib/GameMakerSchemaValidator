@@ -31,7 +31,7 @@ function ValidatorTests() constructor {
     }
     
     add_test("String type validation", function() {
-        var _schema = Schema._({ type: "string" });
+        var _schema = Schema({ type: "string" });
         
         return
             assert_validation("test", _schema, true) &&
@@ -39,7 +39,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Number type validation", function() {
-        var _schema = Schema._({ type: "number" });
+        var _schema = Schema({ type: "number" });
         
         return
             assert_validation(123, _schema, true) &&
@@ -47,7 +47,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Boolean type validation", function() {
-        var _schema = Schema._({ type: "boolean" });
+        var _schema = Schema({ type: "boolean" });
         
         return
             assert_validation(true, _schema, true) &&
@@ -56,7 +56,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Object type validation", function() {
-        var _schema = Schema._({ type: "object" });
+        var _schema = Schema({ type: "object" });
         
         return
             assert_validation({}, _schema, true) &&
@@ -66,7 +66,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Array type validation", function() {
-        var _schema = Schema._({ type: "array" });
+        var _schema = Schema({ type: "array" });
         
         return
             assert_validation([], _schema, true) &&
@@ -75,7 +75,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Null type validation", function() {
-        var _schema = Schema._({ type: "null" });
+        var _schema = Schema({ type: "null" });
         
         return
             assert_validation(undefined, _schema, true) &&
@@ -84,7 +84,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Union type validation", function() {
-        var _schema = Schema._({ type: ["string", "number"] });
+        var _schema = Schema({ type: ["string", "number"] });
         
         return
             assert_validation("test", _schema, true) &&
@@ -93,7 +93,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("String min_length validation", function() {
-        var _schema = Schema._({ type: "string", min_length: 3 });
+        var _schema = Schema({ type: "string", min_length: 3 });
         
         return
             assert_validation("test", _schema, true) &&
@@ -101,7 +101,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("String max_length validation", function() {
-        var _schema = Schema._({ type: "string", max_length: 4 });
+        var _schema = Schema({ type: "string", max_length: 4 });
         
         return
             assert_validation("test", _schema, true) &&
@@ -109,7 +109,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("String pattern_callback validation", function() {
-        var _schema = Schema._({ type: "string", pattern_callback: function(_str) { return string_char_at(_str, 1) == "t" } });
+        var _schema = Schema({ type: "string", pattern_callback: function(_str) { return string_char_at(_str, 1) == "t" } });
         
         return
             assert_validation("test", _schema, true) &&
@@ -118,7 +118,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Number min_value validation", function() {
-        var _schema = Schema._({ type: "number", min_value: 5 });
+        var _schema = Schema({ type: "number", min_value: 5 });
         
         return
             assert_validation(10, _schema, true) &&
@@ -127,7 +127,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Number max_value validation", function() {
-        var _schema = Schema._({ type: "number", max_value: 10 });
+        var _schema = Schema({ type: "number", max_value: 10 });
         
         return
             assert_validation(5, _schema, true) &&
@@ -136,11 +136,11 @@ function ValidatorTests() constructor {
     });
     
     add_test("Required properties validation", function() {
-        var _schema = Schema._({
+        var _schema = Schema({
             type: "object",
             properties: {
-                name: Schema._({ type: "string" }),
-                age: Schema._({ type: "number" })
+                name: Schema({ type: "string" }),
+                age: Schema({ type: "number" })
             },
             required: ["name"]
         });
@@ -152,13 +152,13 @@ function ValidatorTests() constructor {
     });
     
     add_test("Nested object validation", function() {
-        var _schema = Schema._({
+        var _schema = Schema({
             type: "object",
             properties: {
-                user: Schema._({ 
+                user: Schema({ 
                     type: "object",
                     properties: {
-                        name: Schema._({ type: "string" })
+                        name: Schema({ type: "string" })
                     },
                     required: ["name"]
                 })
@@ -173,10 +173,10 @@ function ValidatorTests() constructor {
     });
     
     add_test("AdditionalProperties: false validation", function() {
-        var _schema = Schema._({
+        var _schema = Schema({
             type: "object",
             properties: {
-                name: Schema._({ type: "string" })
+                name: Schema({ type: "string" })
             },
             additional_properties: false
         });
@@ -187,12 +187,12 @@ function ValidatorTests() constructor {
     });
     
     add_test("AdditionalProperties with schema validation", function() {
-        var _schema = Schema._({
+        var _schema = Schema({
             type: "object",
             properties: {
-                name: Schema._({ type: "string" })
+                name: Schema({ type: "string" })
             },
-            additional_properties: Schema._({ type: "number" })
+            additional_properties: Schema({ type: "number" })
         });
         
         return
@@ -202,9 +202,9 @@ function ValidatorTests() constructor {
     });
     
     add_test("Array items validation", function() {
-        var _schema = Schema._({
+        var _schema = Schema({
             type: "array",
-            items: Schema._({ type: "string" })
+            items: Schema({ type: "string" })
         });
         
         return
@@ -214,7 +214,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Array min_items validation", function() {
-        var _schema = Schema._({
+        var _schema = Schema({
             type: "array",
             min_items: 2
         });
@@ -227,7 +227,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Array max_items validation", function() {
-        var _schema = Schema._({
+        var _schema = Schema({
             type: "array",
             max_items: 3
         });
@@ -239,18 +239,18 @@ function ValidatorTests() constructor {
     });
     
     add_test("Complex object with nested arrays", function() {
-        var _schema = Schema._({
+        var _schema = Schema({
             type: "object",
             properties: {
-                name: Schema._({ type: "string" }),
-                tags: Schema._({ 
+                name: Schema({ type: "string" }),
+                tags: Schema({ 
                     type: "array",
-                    items: Schema._({ type: "string" }),
+                    items: Schema({ type: "string" }),
                     min_items: 1
                 }),
-                scores: Schema._({
+                scores: Schema({
                     type: "array",
-                    items: Schema._({ type: "number" })
+                    items: Schema({ type: "number" })
                 })
             },
             required: ["name", "tags"]
@@ -275,7 +275,7 @@ function ValidatorTests() constructor {
     });
     
     add_test("Empty schema validation", function() {
-        var _schema = new Schema();
+        var _schema = new SchemaStruct();
         
         return
             assert_validation("test", _schema, true) &&

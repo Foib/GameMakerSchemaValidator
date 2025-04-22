@@ -1,8 +1,8 @@
 // feather ignore once GM1042
 /// @param {Struct.Schema} schema The schema used to validate data
 function SchemaValidator(_schema) constructor {
-    static print_errors = false;
-    static throw_errors = true;
+    static print_errors = true;
+    static throw_errors = false;
     /// @ignore
     static __error = function(_msg) {
         _msg = $"SchemaValidator: {_msg}";
@@ -222,4 +222,4 @@ function SchemaValidator(_schema) constructor {
         return __validate(_data, schema);
     }
 }
-new SchemaValidator(new Schema());
+new SchemaValidator(new SchemaStruct());

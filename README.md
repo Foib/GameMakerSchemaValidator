@@ -6,11 +6,11 @@ A JSON Schema validator for GameMaker
 
 ```gml
 // Define a schema
-var schema = Schema._({
+var schema = Schema({
   type: "object",
   properties: {
-    name: Schema._({ type: "string", min_length: 2 }),
-    age: Schema._({ type: "number", min_value: 0 }),
+    name: Schema({ type: "string", min_length: 2 }),
+    age: Schema({ type: "number", min_value: 0 }),
   },
   required: ["name"]
 });
@@ -39,10 +39,10 @@ if (result) {
 
 ```gml
 // Type validation
-Schema._({ type: "string" });
+Schema({ type: "string" });
 
 // Multiple types
-Schema._({ type: ["string", "number"] });
+Schema({ type: ["string", "number"] });
 ```
 
 Supported types: `string`, `number`, `boolean`, `object`, `array`, `null`
@@ -50,18 +50,18 @@ Supported types: `string`, `number`, `boolean`, `object`, `array`, `null`
 ### String Validations
 
 ```gml
-Schema._({
+Schema({
   type: "string",
   min_length: 5, // Minimum string length
   max_length: 100, // Maximum string length
-  pattern_callback: function(str) { return string_char_at(_str, 1) == "a" }, // Callback function to validate a string
+  pattern_callback: function(str) { return string_char_at(str, 1) == "a" }, // Callback function to validate a string
 });
 ```
 
 ### Number Validations
 
 ```gml
-Schema._({
+Schema({
   type: "number",
   min_value: 0, // Minimum value
   max_value: 100, // Maximum value
@@ -71,33 +71,33 @@ Schema._({
 ### Object Validations
 
 ```gml
-Schema._({
+Schema({
   type: "object",
   properties: {
     // Property definitions
-    name: Schema._({ type: "string" }),
-    age: Schema._({ type: "number" }),
+    name: Schema({ type: "string" }),
+    age: Schema({ type: "number" }),
   },
   required: ["name", "age"], // Required properties
   additional_properties: false, // No additional properties allowed
 });
 
 // With schema for additional properties
-Schema._({
+Schema({
   type: "object",
   properties: {
-    name: Schema._({ type: "string" }),
+    name: Schema({ type: "string" }),
   },
-  additional_properties: Schema._({ type: "number" }), // Additional properties must be numbers
+  additional_properties: Schema({ type: "number" }), // Additional properties must be numbers
 });
 ```
 
 ### Array Validations
 
 ```gml
-Schema._({
+Schema({
   type: "array",
-  items: Schema._({ type: "string" }), // All items must be strings
+  items: Schema({ type: "string" }), // All items must be strings
   min_items: 1, // Minimum array length
   max_items: 10, // Maximum array length
 });
@@ -106,12 +106,12 @@ Schema._({
 ## Complex Example
 
 ```gml
-var schema = Schema._({
+var schema = Schema({
   type: "object",
   properties: {
-    id: Schema._({ type: "number" }),
-    name: Schema._({ type: "string", min_length: 2, max_length: 100 }),
-    email: Schema._({
+    id: Schema({ type: "number" }),
+    name: Schema({ type: "string", min_length: 2, max_length: 100 }),
+    email: Schema({
       type: "string",
       pattern_callback: function(str) {
         if (string_length(str) < 3 || string_count(str, "@") != 1) {
@@ -126,19 +126,19 @@ var schema = Schema._({
         return true;
       },
     }),
-    active: Schema._({ type: "boolean" }),
-    role: Schema._({ type: "string" }),
-    tags: Schema._({
+    active: Schema({ type: "boolean" }),
+    role: Schema({ type: "string" }),
+    tags: Schema({
       type: "array",
-      items: Schema._({ type: "string" }),
+      items: Schema({ type: "string" }),
       min_items: 1,
     }),
-    address: Schema._({
+    address: Schema({
       type: "object",
       properties: {
-        street: Schema._({ type: "string" }),
-        city: Schema._({ type: "string" }),
-        zip: Schema._({ type: ["string", "number"] }),
+        street: Schema({ type: "string" }),
+        city: Schema({ type: "string" }),
+        zip: Schema({ type: ["string", "number"] }),
       },
       required: ["street", "city"],
     }),

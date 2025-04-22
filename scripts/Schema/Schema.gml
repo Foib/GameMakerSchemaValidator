@@ -12,14 +12,7 @@
 /// @param {Real} [max_items]
 /// @param {String} [format]
 /// @param {Bool,Struct.Schema} [additional_properties]
-function Schema(_type=undefined, _properties=undefined, _required=undefined, _items=undefined, _min_value=undefined, _max_value=undefined, _min_length=undefined, _max_length=undefined, _pattern_callback=undefined, _min_items=undefined, _max_items=undefined, _format=undefined, _additional_properties=undefined) constructor {
-    // feather ignore once GM1042
-    /// @param {Struct} struct
-    /// @return {Struct.Schema}
-    static _ = function(_struct) {
-        return struct_assign(new Schema(), _struct, false);
-    }
-    
+function SchemaStruct(_type=undefined, _properties=undefined, _required=undefined, _items=undefined, _min_value=undefined, _max_value=undefined, _min_length=undefined, _max_length=undefined, _pattern_callback=undefined, _min_items=undefined, _max_items=undefined, _format=undefined, _additional_properties=undefined) constructor {
     type = _type;
     properties = _properties;
     required = _required;
@@ -34,4 +27,10 @@ function Schema(_type=undefined, _properties=undefined, _required=undefined, _it
     format = _format;
     additional_properties = _additional_properties;
 }
-new Schema();
+
+// feather ignore once GM1042
+/// @param {Struct} struct
+/// @return {Struct.SchemaStruct}
+function Schema(_struct) {
+    return struct_assign(new SchemaStruct(), _struct, false);
+}
