@@ -1,17 +1,17 @@
 // feather ignore once GM1042
 /// @param {Struct.Schema} schema The schema used to validate data
-function StructValidator(_schema) constructor {
+function SchemaValidator(_schema) constructor {
     static print_errors = false;
     static throw_errors = true;
     /// @ignore
     static __error = function(_msg) {
-        _msg = $"StructValidator: {_msg}";
+        _msg = $"SchemaValidator: {_msg}";
         
-        if (StructValidator.print_errors) {
+        if (SchemaValidator.print_errors) {
             show_debug_message(_msg);
         }
         
-        if (StructValidator.throw_errors) {
+        if (SchemaValidator.throw_errors) {
             throw (_msg);
         }
     }
@@ -19,7 +19,7 @@ function StructValidator(_schema) constructor {
     schema = _schema;
     if (!is_struct(schema)) {
         schema = undefined;
-        StructValidator.__error("Schema is not of type struct");
+        SchemaValidator.__error("Schema is not of type struct");
     }
     
     /// @ignore
@@ -54,7 +54,7 @@ function StructValidator(_schema) constructor {
             }
         }
         
-        StructValidator.__error($"Expected type {string_join_ext(" or ", _types)}, got {typeof(_data)}");
+        SchemaValidator.__error($"Expected type {string_join_ext(" or ", _types)}, got {typeof(_data)}");
         return false;
     }
     
@@ -72,17 +72,17 @@ function StructValidator(_schema) constructor {
         var _str_length = string_length(_data);
         
         if (is_numeric(_schema.min_length) && _str_length < _schema.min_length) {
-            StructValidator.__error($"String is too short ({string_length(_data)}), minimum length is {_schema.min_length}");
+            SchemaValidator.__error($"String is too short ({string_length(_data)}), minimum length is {_schema.min_length}");
             return false;
         }
         
         if (is_numeric(_schema.max_length) && _str_length > _schema.max_length) {
-            StructValidator.__error($"String is too long ({string_length(_data)}), maximum length is {_schema.max_length}");
+            SchemaValidator.__error($"String is too long ({string_length(_data)}), maximum length is {_schema.max_length}");
             return false;
         }
         
         if (is_callable(_schema.pattern_callback) && !_schema.pattern_callback(_data)) {
-            StructValidator.__error($"Pattern callback function does not return true");
+            SchemaValidator.__error($"Pattern callback function does not return true");
             return false;
         }
         
@@ -101,12 +101,12 @@ function StructValidator(_schema) constructor {
         }
         
         if (is_numeric(_schema.min_value) && _data < _schema.min_value) {
-            StructValidator.__error($"Number is too small {_data}, minimum is {_schema.min_value}");
+            SchemaValidator.__error($"Number is too small {_data}, minimum is {_schema.min_value}");
             return false;
         }
         
         if (is_numeric(_schema.max_value) && _data > _schema.max_value) {
-            StructValidator.__error($"Number is too large {_data}, maximum is {_schema.max_value}");
+            SchemaValidator.__error($"Number is too large {_data}, maximum is {_schema.max_value}");
             return false;
         }
         
@@ -133,7 +133,7 @@ function StructValidator(_schema) constructor {
                 }
                 
                 if (!struct_exists(_data, _prop)) {
-                    StructValidator.__error($"Missing required property: {_prop}");
+                    SchemaValidator.__error($"Missing required property: {_prop}");
                     return false;
                 }
             }
@@ -153,7 +153,7 @@ function StructValidator(_schema) constructor {
                 }
                 
                 if (_schema.additional_properties == false) {
-                    StructValidator.__error($"Additional property '{_prop}' is not allowed");
+                    SchemaValidator.__error($"Additional property '{_prop}' is not allowed");
                     return false;
                 }
                 
@@ -178,12 +178,12 @@ function StructValidator(_schema) constructor {
         }
         
         if (is_numeric(_schema.min_items) && array_length(_data) < _schema.min_items) {
-            StructValidator.__error($"Array is too short {_data}, minimum length is {_schema.min_items}");
+            SchemaValidator.__error($"Array is too short {_data}, minimum length is {_schema.min_items}");
             return false;
         }
         
         if (is_numeric(_schema.max_items) && array_length(_data) > _schema.max_items) {
-            StructValidator.__error($"Array is too long {_data}, maximum length is {_schema.max_items}");
+            SchemaValidator.__error($"Array is too long {_data}, maximum length is {_schema.max_items}");
             return false;
         }
         
@@ -222,4 +222,4 @@ function StructValidator(_schema) constructor {
         return __validate(_data, schema);
     }
 }
-new StructValidator(new Schema());
+new SchemaValidator(new Schema());

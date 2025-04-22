@@ -1,6 +1,6 @@
 function ValidatorTests() constructor {
-    StructValidator.print_errors = false;
-    StructValidator.throw_errors = false;
+    SchemaValidator.print_errors = false;
+    SchemaValidator.throw_errors = false;
     
     tests = [];
     passed = 0;
@@ -20,7 +20,7 @@ function ValidatorTests() constructor {
     }
     
     assert_validation = function(_data, _schema, _expected_valid) {
-        var _validator = new StructValidator(_schema);
+        var _validator = new SchemaValidator(_schema);
         var _result = _validator.validate(_data);
         
         if (!assert(_result == _expected_valid, $"Expected validation to be {_expected_valid ? "true" : "false"} but got {_result ? "true" : "false"}")) {

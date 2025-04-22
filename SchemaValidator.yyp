@@ -23,8 +23,8 @@
   "resources":[
     {"id":{"name":"rm_test","path":"rooms/rm_test/rm_test.yy",},},
     {"id":{"name":"Schema","path":"scripts/Schema/Schema.yy",},},
+    {"id":{"name":"SchemaValidator","path":"scripts/SchemaValidator/SchemaValidator.yy",},},
     {"id":{"name":"struct_assign","path":"scripts/struct_assign/struct_assign.yy",},},
-    {"id":{"name":"StructValidator","path":"scripts/StructValidator/StructValidator.yy",},},
     {"id":{"name":"ValidatorTests","path":"scripts/ValidatorTests/ValidatorTests.yy",},},
   ],
   "resourceType":"GMProject",
